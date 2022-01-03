@@ -1,0 +1,6 @@
+- name: projects
+  link: /projects.html
+- name: about_me
+  link: /about_me.html
+- name: contact
+  link: /contact.html

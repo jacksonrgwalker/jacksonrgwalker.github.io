@@ -1,0 +1,14 @@
+---
+layout: default
+title: gus!
+---
+<div class="card-columns mt-4 fadein">
+
+{% for image in site.static_files %}
+    {% if image.path contains 'img/gus' %}
+        <div class="card border shadow fadein">
+            <img src="{{site.baseurl}}{{image.path}}" class="card-img-top" alt="...">
+          </div>
+    {% endif %}
+{% endfor %}
+  </div>

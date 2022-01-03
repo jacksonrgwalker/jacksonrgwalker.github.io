@@ -1,0 +1,16 @@
+<nav id="header" class="navbar navbar-expand-lg navbar-light bg-light text-monospace font-weight-bold shadow-sm">
+    <a class="navbar-brand" href="/">
+      <img id="logo" class="d-inline-block align-top">
+    </a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+        <div class="navbar-nav">
+          {% for item in site.data.navigation %}
+          <a class="nav-item nav-link ml-3 {% if page.url == item.link %} active rounded badge-warning {% endif %}" href="{{ item.link }}" >{{ item.name }}</a>
+          {% endfor %}
+        </div>
+   </div>
+  </nav>
