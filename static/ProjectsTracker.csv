@@ -1,0 +1,6 @@
+ProjectName,Date,Description,Link
+Pace Check,"python, running, strava, maps, analysis",A brief analysis of one of my runs tracked with the Strava App,pace_check
+Pace Check II,"python, running, strava, API, analysis, regression, polylines",Further analysis of my longest run yet,pace_check_2
+Neural Net Number Namer,"AI, python, tensorflow, MNIST, neural networks","A simple, deployed, AI model to predict a drawn number",mnist_draw
+Blackjack Simulator,"pure python, simulation, blackjack","A simple, pure python simulator for the card game blackjack.",blackjack_simulator
+Game of Life,"javascript, cellular automata, simulation","A javascript implementation of Conway's Game of Life",game_of_life
