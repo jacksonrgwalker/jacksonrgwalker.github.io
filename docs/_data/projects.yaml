@@ -1,0 +1,25 @@
+-
+    name: Pace Check
+    tags: python, running, strava, maps, analysis
+    description: A brief analysis of one of my runs tracked with the Strava App
+    url: pace_check
+-
+    name: Pace Check II
+    tags: python, running, strava, API, analysis, regression, polylines
+    description: Further analysis of my longest run yet
+    url: pace_check_2
+-
+    name: Neural Net Number Namer
+    tags: AI, python, tensorflow, MNIST, neural networks
+    description: A simple, deployed, AI model to predict a drawn number
+    url: mnist_draw
+-
+    name: Blackjack Simulator
+    tags: pure python, simulation, blackjack
+    description: A simple, pure python simulator for the card game blackjack.
+    url: blackjack_simulator
+-
+    name: Game of Life
+    tags: javascript, cellular automata, simulation
+    description: 'A javascript implementation of Conway''s Game of Life'
+    url: game_of_life
