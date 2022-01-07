@@ -2,7 +2,7 @@
 layout: default
 title: projects
 ---
-<h1>Latest Posts</h1>
+<h1>Latest Stuff</h1>
 
 <!-- <ul>
   {% for post in site.posts %}
@@ -20,11 +20,11 @@ title: projects
       <div class="card-body">
         <h5 class="card-title">{{ post.title }}</h5>
         <h6 class="card-subtitle mb-2 text-muted">{{ post.tags | join: ", "}}</h6>
-        <p class="card-text">{{ project.description }}</p>
-        {% if post.url!='#' %}
-        <a href="{{project.url}}" class="btn btn-warning">Check it out</a>
+        <p class="card-text">{{ post.description }}</p>
+        {% if post.status %}
+        <a href="" class="btn btn-warning disabled">{{post.status}}</a>
         {% else %}
-        <a href="" class="btn btn-warning disabled">Coming Soon</a>
+        <a href="{{post.url}}" class="btn btn-warning">Check it out</a>
         {% endif %}
       </div>
     </div>
@@ -33,7 +33,7 @@ title: projects
   </div>
 
 
-<div class="row justify-content-center fadein">
+<!-- <div class="row justify-content-center fadein">
   {% for project in site.data.projects %}
   <div class="col-sm-6 mt-3">
     <div class="card shadow">
@@ -50,4 +50,4 @@ title: projects
     </div>
   </div>
   {% endfor %}
-  </div>
+  </div> -->

@@ -30,7 +30,7 @@ twitter_username: jwalk_io
 github_username:  jacksonrgwalker
 
 # Build settings
-# theme: minima
+theme: minima
 plugins:
   - jekyll-feed
   - jekyll-sitemap
@@ -41,6 +41,12 @@ defaults:
       path: "assets/img"
     values:
       image: true
+  # - scope:
+  #     path: ""
+  #     type: "posts"
+  #   values:
+  #     layout: "post"
+  #     theme: minima
 
 
 
