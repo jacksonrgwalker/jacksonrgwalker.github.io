@@ -1,6 +1,6 @@
 ---
 tags: ["pure python", "simulation", "blackjack"]
-description: "A simple, pure python simulator for the card game blackjack."
+description: "A simple, pure python simulator for the card game blackjack"
 ---
 # blackjack-simulator
 
