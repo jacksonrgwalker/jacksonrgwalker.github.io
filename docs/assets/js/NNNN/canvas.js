@@ -51,6 +51,10 @@ function beginDrawingPath(event) {
     canvas.addEventListener("mousemove", getPrediction);
     canvas.addEventListener("touchmove", getPrediction);
 
+    canvas.addEventListener("mousemove", updatePlot);
+    canvas.addEventListener("touchmove", updatePlot);
+    
+
 }
 
 function dragAndDraw(event) {
@@ -70,7 +74,7 @@ function drawLastPath() {
 
     context.beginPath();
 
-    var i = clickX.length-1
+    var i = clickX.length - 1
 
     if (clickDrag[i] && i) {
         context.moveTo(clickX[i - 1], clickY[i - 1]);
@@ -86,9 +90,12 @@ function drawLastPath() {
 
 function clearCanvas() {
 
-    context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+    context.clearRect(0, 0, canvas.width, canvas.height);
 
     updatePredictionText()
+
+    window.scores = Array(10).fill(0)
+    updatePlot();
 
     clickX = new Array();
     clickY = new Array();
@@ -134,34 +141,41 @@ function reshapeParsedImageData(drawingArray) {
 
 function getModelInput() {
 
-    var resizedContext = getResizeCanvas();
-    var resizedData = getImageData(resizedContext);
-    var drawingArray = parseImageData(resizedData);
-    var reshapedArray = reshapeParsedImageData(drawingArray);
+    let resizedContext = getResizeCanvas();
+    let resizedData = getImageData(resizedContext);
+    let drawingArray = parseImageData(resizedData);
+    let reshapedArray = reshapeParsedImageData(drawingArray);
+    let modelInput = [tf.tensor(reshapedArray).reshape([1, 28, 28, 1])]
 
-    return reshapedArray
+    return modelInput
 }
 
-function getPrediction() {
+function getPrediction(updateText=true) {
 
     modelInput = getModelInput()
-    window.model.predict([tf.tensor(modelInput).reshape([1, 28, 28, 1])]).array().then(function (scores) {
-        scores = scores[0];
-        prediction = scores.indexOf(Math.max(...scores));
-        updatePredictionText(prediction);
 
-        // console.log(scores)
-        // console.log(prediction)
-    });
+    if (window.model) {
+        window.model.predict(modelInput).array().then(function (scores) {
+
+            scores = scores[0];
+            window.scores = scores
+
+            prediction = scores.indexOf(Math.max(...scores));
+            if (updateText) updatePredictionText(prediction);
+
+        });
+    }
+    else console.log("Model not ready to predict yet")
 }
 
 function updatePredictionText(prediction) {
     var predictionTextElement = document.getElementById("predictionText");
     if (Number.isInteger(prediction)) {
         predictionTextElement.textContent = `you drew the number ${prediction}`;
+        predictionTextElement.style.visibility = 'visible';
     }
     else {
-        predictionTextElement.textContent = null
+        predictionTextElement.style.visibility = 'hidden';
     }
 }
 
