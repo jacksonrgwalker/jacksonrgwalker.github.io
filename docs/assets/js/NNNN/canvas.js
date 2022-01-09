@@ -1,90 +1,94 @@
 var canvas;
 var context;
+
 var clickX = new Array();
 var clickY = new Array();
 var clickDrag = new Array();
-var paint = false;
-var curColor = "#ffcc00";
 
 function drawCanvas() {
 
     canvas = document.getElementById('canvas');
-    context = document.getElementById('canvas').getContext("2d");
+    context = canvas.getContext("2d");
+
+    context.strokeStyle = "#ffcc00";
+    context.lineJoin = "round";
+    context.lineWidth = 25;
 
     canvas.addEventListener("touchstart", function (event) { event.preventDefault() })
     canvas.addEventListener("touchmove", function (event) { event.preventDefault() })
     canvas.addEventListener("touchend", function (event) { event.preventDefault() })
     canvas.addEventListener("touchcancel", function (event) { event.preventDefault() })
+    canvas.addEventListener("mousedown", function (event) { event.preventDefault() })
 
-    $('#canvas').bind('mousedown touchstart', function (e) {
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;
 
-        paint = true;
-        addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop);
-        redraw();
-    });
+    window.addEventListener('mousedown', beginDrawingPath)
+    window.addEventListener('touchstart', beginDrawingPath)
 
-    $('#canvas').bind('mousemove touchmove', function (e) {
-        if (paint) {
-            addClick(e.pageX - this.offsetLeft, e.pageY - this.offsetTop, true);
-            redraw();
-        }
-    });
-
-    $('#canvas').bind('mouseup touchend', function (e) {
-        paint = false;
-    });
-
-    // canvas.addEventListener("mousedown", function(e){
-    //     this.addEventListener("mousemove", getPrediction);
-    // });
-    
-    // canvas.addEventListener("mouseup", function(e){
-    //     this.removeEventListener("mousemove", getPrediction);
-    // });
-
-    canvas.addEventListener('mousemove', getPrediction);
-    canvas.addEventListener('touchmove', getPrediction);
+    window.addEventListener('mouseup', endDrawingPath)
+    window.addEventListener('touchend', endDrawingPath)
 
 }
 
-/**
-- Saves the click postition
-**/
+function endDrawingPath() {
+
+    canvas.removeEventListener("mousemove", dragAndDraw);
+    canvas.removeEventListener("touchmove", dragAndDraw);
+
+    canvas.removeEventListener("mousemove", getPrediction);
+    canvas.removeEventListener("touchmove", getPrediction);
+
+}
+
+function beginDrawingPath(event) {
+
+    //  begining of path, we are not dragging (yet)
+    addClick(event.pageX - this.offsetLeft, event.pageY - this.offsetTop, false);
+
+    // while drawing, we want to get predictions for the number
+    canvas.addEventListener("mousemove", dragAndDraw);
+    canvas.addEventListener("touchmove", dragAndDraw);
+
+    canvas.addEventListener("mousemove", getPrediction);
+    canvas.addEventListener("touchmove", getPrediction);
+
+}
+
+function dragAndDraw(event) {
+    addClick(event.pageX - this.offsetLeft, event.pageY - this.offsetTop, true);
+    drawLastPath();
+}
+
 function addClick(x, y, dragging) {
+
     clickX.push(x);
     clickY.push(y);
     clickDrag.push(dragging);
+
 }
 
-/**
-- Clear the canvas and redraw
-**/
-function redraw() {
+function drawLastPath() {
 
-    // context.clearRect(0, 0, context.canvas.width, context.canvas.height); // Clears the canvas
-    context.strokeStyle = curColor;
-    context.lineJoin = "round";
-    context.lineWidth = 25;
+    context.beginPath();
 
-    for (var i = 0; i < clickX.length; i++) {
-        context.beginPath();
-        if (clickDrag[i] && i) {
-            context.moveTo(clickX[i - 1], clickY[i - 1]);
-        } else {
-            context.moveTo(clickX[i] - 1, clickY[i]);
-        }
-        context.lineTo(clickX[i], clickY[i]);
-        context.closePath();
-        context.stroke();
+    var i = clickX.length-1
+
+    if (clickDrag[i] && i) {
+        context.moveTo(clickX[i - 1], clickY[i - 1]);
+    } else {
+        context.moveTo(clickX[i], clickY[i]);
     }
+
+    context.lineTo(clickX[i], clickY[i]);
+
+    context.closePath();
+    context.stroke();
 }
 
-// Clears the canvas to be blank
 function clearCanvas() {
 
     context.clearRect(0, 0, context.canvas.width, context.canvas.height);
+
+    updatePredictionText()
 
     clickX = new Array();
     clickY = new Array();
@@ -109,7 +113,6 @@ function getImageData(resizedContext) {
     return resizedData
 }
 
-
 function parseImageData(resizedData) {
 
     let pixels = resizedData.data;
@@ -129,7 +132,6 @@ function reshapeParsedImageData(drawingArray) {
     return reshapedArray
 }
 
-
 function getModelInput() {
 
     var resizedContext = getResizeCanvas();
@@ -139,7 +141,6 @@ function getModelInput() {
 
     return reshapedArray
 }
-
 
 function getPrediction() {
 
@@ -154,8 +155,13 @@ function getPrediction() {
     });
 }
 
-function updatePredictionText(prediction){
+function updatePredictionText(prediction) {
     var predictionTextElement = document.getElementById("predictionText");
-    // predictionTextElement.textContent = prediction;
-    predictionTextElement.textContent = `you drew the number ${prediction}`;
+    if (Number.isInteger(prediction)) {
+        predictionTextElement.textContent = `you drew the number ${prediction}`;
+    }
+    else {
+        predictionTextElement.textContent = null
+    }
 }
+

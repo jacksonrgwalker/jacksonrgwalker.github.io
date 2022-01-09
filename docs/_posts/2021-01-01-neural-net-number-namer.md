@@ -13,9 +13,7 @@ description: "A simple, deployed, AI model to predict a drawn number"
     <canvas class="border border-warning rounded" id="canvas" name="draw" width="400" height="400" style="text-align: center;">
 
         <script type="text/javascript">
-            $(document).ready(function () {
                 drawCanvas();
-            });
         </script>
     </canvas>
 
