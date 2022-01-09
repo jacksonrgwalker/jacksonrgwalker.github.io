@@ -149,8 +149,8 @@ function getPrediction() {
         prediction = scores.indexOf(Math.max(...scores));
         updatePredictionText(prediction);
 
-        console.log(scores)
-        console.log(prediction)
+        // console.log(scores)
+        // console.log(prediction)
     });
 }
 
