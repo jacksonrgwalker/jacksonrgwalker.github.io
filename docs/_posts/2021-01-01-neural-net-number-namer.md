@@ -25,7 +25,7 @@ description: "A simple, deployed, AI model to predict a drawn number"
         <button type="button" class="btn btn-outline-warning mt-2" onclick="clearCanvas()">clear</button>
     </div>
 
-    <h5 id="predictionText" class="display-4 text-center warning font-weight-bold text-warning mb-6" style="visibility: hidden;">you drew the number</h5> 
+    <h5 id="predictionText" class="display-5 text-center warning font-weight-bold text-warning mb-6" style="visibility: hidden;">you drew the number</h5> 
 
     <div id="predictionPlot"></div>
     <script src="/assets/js/NNNN/chart.js"></script>

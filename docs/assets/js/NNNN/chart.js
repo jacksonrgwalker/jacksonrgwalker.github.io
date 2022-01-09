@@ -2,8 +2,8 @@
 
 // set the dimensions and margins of the graph
 var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-    width = 460 - margin.left - margin.right,
-    height = 400 - margin.top - margin.bottom;
+    width = 392 - margin.left - margin.right,
+    height = 200 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#predictionPlot")
@@ -29,7 +29,7 @@ svg
         .selectAll("text")
         .style("font-size", 25)
         .style("fill", "#ffc107")
-        .style('stroke-width', '5px')
+        .style('font-weight', '600')
 
 // Add Y axis
 var y = d3.scaleLinear()
@@ -43,11 +43,12 @@ var y = d3.scaleLinear()
 svg.append("text")
     .attr("class", "y label")
     .attr("text-anchor", "end")
-    .attr("y", -margin.left+40)
-    .attr("x", -margin.top-70)
+    .attr("y", -margin.left+width/10)
+    .attr("x", -margin.top+width/10)
     .attr("dy", "1em")
     .attr("transform", "rotate(-90)")
     .attr("fill", "#ffc107")
+    .style('font-weight', 'bold')
     .text("confidence");
 
 
