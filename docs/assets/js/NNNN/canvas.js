@@ -20,7 +20,6 @@ function drawCanvas() {
     canvas.addEventListener("touchcancel", function (event) { event.preventDefault() })
     canvas.addEventListener("mousedown", function (event) { event.preventDefault() })
 
-
     window.addEventListener('mousedown', beginDrawingPath)
     window.addEventListener('touchstart', beginDrawingPath)
 
@@ -53,7 +52,7 @@ function beginDrawingPath(event) {
 
     canvas.addEventListener("mousemove", updatePlot);
     canvas.addEventListener("touchmove", updatePlot);
-    
+
 
 }
 
@@ -150,7 +149,7 @@ function getModelInput() {
     return modelInput
 }
 
-function getPrediction(updateText=true) {
+function getPrediction(updateText = true) {
 
     modelInput = getModelInput()
 
@@ -177,5 +176,24 @@ function updatePredictionText(prediction) {
     else {
         predictionTextElement.style.visibility = 'hidden';
     }
+}
+
+function addNoise() {
+
+
+    for (let i = 0; i < canvas.width; i++) {
+    
+        for (let j = 0; j < canvas.width; j++) {
+            
+            let thresh = (i * j)**2 % i
+            if (Math.random() < thresh) continue
+
+            opacity = Math.random();
+            context.fillStyle = `rgba(255, 204, 0, ${opacity})`;
+            context.fillRect(i, j, 1, 1)
+        }
+    };
+    getPrediction();
+    updatePlot();
 }
 

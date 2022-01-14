@@ -39,18 +39,12 @@ plugins:
 markdown: kramdown
 
 defaults:
+# give every page in the projects folder the is_project: true flag so that we can automatically filter pages in the projects page  
   - scope:
-      path: "assets/img"
+      path: "projects"
+      type: "pages"
     values:
-      image: true
-  # - scope:
-  #     path: ""
-  #     type: "posts"
-  #   values:
-  #     layout: "post"
-  #     theme: minima
-
-
+      is_project: true
 
 # Exclude from processing.
 # The following items will not be processed, by default.

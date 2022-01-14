@@ -4,50 +4,24 @@ title: projects
 ---
 <h1>Latest Stuff</h1>
 
-<!-- <ul>
-  {% for post in site.posts %}
-    <li>
-      <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-      {{ post.excerpt }}
-    </li>
-  {% endfor %}
-</ul> -->
 
-<div class="row justify-content-center fadein">
-  {% for post in site.posts %}
-  <div class="col-sm-6 mt-3">
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">{{ post.title }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ post.tags | join: ", "}}</h6>
-        <p class="card-text">{{ post.description }}</p>
-        {% if post.status %}
-        <a href="" class="btn btn-warning disabled">{{post.status}}</a>
-        {% else %}
-        <a href="{{post.url}}" class="btn btn-warning">Check it out</a>
-        {% endif %}
-      </div>
+  <div class="row justify-content-center fadein">
+    {% for project in site.pages %}
+      {% if project.is_project %}
+        <div class="col-sm-6 mt-3">
+          <div class="card shadow">
+            <div class="card-body">
+              <h5 class="card-title">{{ project.title }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">{{ project.tags | join: ", "}}</h6>
+              <p class="card-text">{{ project.description }}</p>
+              {% if project.status %}
+              <a href="" class="btn btn-warning disabled">{{project.status}}</a>
+              {% else %}
+              <a href="{{project.url | replace: ".html", ""}}" class="btn btn-warning">Check it out</a>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endif %}
+    {% endfor %}
     </div>
-  </div>
-  {% endfor %}
-  </div>
-
-
-<!-- <div class="row justify-content-center fadein">
-  {% for project in site.data.projects %}
-  <div class="col-sm-6 mt-3">
-    <div class="card shadow">
-      <div class="card-body">
-        <h5 class="card-title">{{ project.name }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ project.tags | join: ", " }}</h6>
-        <p class="card-text">{{ project.description }}</p>
-        {% if project.url!='#' %}
-        <a href="{{project.url}}" class="btn btn-warning">Check it out</a>
-        {% else %}
-        <a href="" class="btn btn-warning disabled">Coming Soon</a>
-        {% endif %}
-      </div>
-    </div>
-  </div>
-  {% endfor %}
-  </div> -->

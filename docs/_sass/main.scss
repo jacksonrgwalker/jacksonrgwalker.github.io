@@ -53,3 +53,8 @@
     0% { opacity: 0; }
     100%   { opacity: 1; }
   }
+
+.navbar-fixed-top {
+    top: 0;
+    border-width: 0 0 1px;
+}

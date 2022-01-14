@@ -9,7 +9,8 @@
     <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
         <div class="navbar-nav">
           {% for item in site.data.navigation %}
-          <a class="nav-item nav-link ml-3 {% if page.url == item.link %} active rounded badge-warning {% endif %}" href="{{ item.link }}" >{{ item.name }}</a>
+          {% assign current_url_pretty = page.url | replace: ".html", "" %}
+          <a class="nav-item nav-link ml-3 {% if current_url_pretty == item.link %} active rounded badge-warning navbar-fixed-top {% endif %}" href="{{ item.link }}" >{{ item.name }}</a>
           {% endfor %}
         </div>
    </div>

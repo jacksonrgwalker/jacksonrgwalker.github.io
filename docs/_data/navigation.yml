@@ -1,6 +1,6 @@
 - name: projects
-  link: /projects.html
+  link: /projects
 - name: about_me
-  link: /about_me.html
+  link: /about_me
 - name: contact
-  link: /contact.html
+  link: /contact

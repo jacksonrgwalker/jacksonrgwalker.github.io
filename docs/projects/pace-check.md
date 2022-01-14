@@ -1,6 +1,7 @@
 ---
 tags: ["python", "running", "strava", "maps", "analysis"]
 description: "A brief analysis of one of my runs tracked with the Strava App"
+layout: project
 ---
 # Pace Check
 
