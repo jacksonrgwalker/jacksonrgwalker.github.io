@@ -20,8 +20,8 @@ function drawCanvas() {
     canvas.addEventListener("touchcancel", function (event) { event.preventDefault() })
     canvas.addEventListener("mousedown", function (event) { event.preventDefault() })
 
-    window.addEventListener('mousedown', beginDrawingPath)
-    window.addEventListener('touchstart', beginDrawingPath)
+    canvas.addEventListener('mousedown', beginDrawingPath)
+    canvas.addEventListener('touchstart', beginDrawingPath)
 
     window.addEventListener('mouseup', endDrawingPath)
     window.addEventListener('touchend', endDrawingPath)
@@ -149,6 +149,7 @@ function getModelInput() {
     return modelInput
 }
 
+
 function getPrediction(updateText = true) {
 
     modelInput = getModelInput()
@@ -182,10 +183,10 @@ function addNoise() {
 
 
     for (let i = 0; i < canvas.width; i++) {
-    
+
         for (let j = 0; j < canvas.width; j++) {
-            
-            let thresh = (i * j)**2 % i
+
+            let thresh = (i * j) ** 2 % i
             if (Math.random() < thresh) continue
 
             opacity = Math.random();
@@ -197,3 +198,37 @@ function addNoise() {
     updatePlot();
 }
 
+
+function getAllLayerOutput() {
+
+    modelInput = getModelInput()
+
+    if (!window.model) return
+
+    model_input = getModelInput()
+
+    let layer_outputs = [model_input]
+
+    let layer_outputs_awaited = [] 
+
+    // skip 0th layer, it is a tfjs input layer, I think
+    for (let layer_num = 1; layer_num < window.model.layers.length; layer_num++) {
+
+        let layer = window.model.layers[layer_num]
+        let layer_output = layer.apply(layer_outputs[layer_num - 1])
+        layer_outputs.push(layer_output);
+
+        layer_output.array().then(function (layer_output_array) {
+            layer_outputs_awaited.push({
+                name: layer.name,
+                data: layer_output_array[0],
+                shape: layer_output.shape.slice(1)
+            })
+        })
+
+    }
+
+    return layer_outputs_awaited
+
+
+}        
