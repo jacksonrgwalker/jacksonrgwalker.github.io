@@ -228,7 +228,22 @@ function getAllLayerOutput() {
 
     }
 
+    window.layer_outputs = layer_outputs_awaited
+
     return layer_outputs_awaited
 
 
-}        
+}
+
+
+async function getConvVisuals(layerIndex, canvasElem){
+
+    if (!window.layer_outputs) getAllLayerOutput()
+
+    const single_conv = tf.slice(window.layer_outputs[layerIndex].data, [0, 0, 0], [28, 28, 1])
+
+    const resized = tf.tidy(() => tf.image.resizeNearestNeighbor(single_conv, [28,28]).clipByValue(0.0, 1.0));
+
+    await tf.browser.toPixels(resized, canvasElem); 
+
+} 

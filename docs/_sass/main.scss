@@ -14,6 +14,15 @@
   animation-play-state: running;              /* trigger on hover */
   }
 
+.animateOnce {
+    animation: logo_dance 1s normal forwards ease-in-out;
+    width: 40px;
+    height: 40px;
+    animation-duration: 1s;
+    animation-delay: 1000ms;
+
+}
+
 // @keyframes logo_dance {
 //   25%  {content:url("/assets/img/logo/logo B.png");}
 //   50%  {content:url("/assets/img/logo/logo C.png");}

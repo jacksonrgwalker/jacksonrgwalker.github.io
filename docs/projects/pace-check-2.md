@@ -21,8 +21,6 @@ Now I can use the client to access my Strava account information, like recent ru
 
 
 ```python
-access_token = '04515d0d07bf7f52475e85bcddb36d8443f331da'
-
 from stravaio import StravaIO
 client = StravaIO(access_token=access_token)
 
