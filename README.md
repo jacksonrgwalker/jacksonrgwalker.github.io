@@ -1,5 +1,2 @@
-# jacksonrgwalker.github.io
-Github Pages Repo
-
-
-Lorem Ipsum Dolar
+# What are you doing here?
+[Go to my website](http://jwalk.io/projects), dingus. 
