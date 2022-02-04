@@ -1,6 +1,6 @@
 ---
 tags: ["monte carlo", "pure python", "simulation"]
-description: "Throwing darts to estimate the value of π"
+description: "Throwing darts to compute the value of π"
 layout: project
 order_index: 6
 ---
@@ -123,7 +123,7 @@ plt.show()
 
 
     
-![png](https://raw.githubusercontent.com/jacksonrgwalker/pi-dart/main/output_14_0.png?token=GHSAT0AAAAAABRD36AWWXHVOCJPCJ4KLFL4YP4P3EA)
+![png](https://raw.githubusercontent.com/jacksonrgwalker/pi-dart/main/output_14_0.png)
     
 
 
