@@ -6,7 +6,8 @@ title: projects
 
 
   <div class="row justify-content-center fadein">
-    {% for project in site.pages %}
+    {% assign proj_pages = site.pages | sort: "order_index" | reverse %}
+    {% for project in proj_pages %}
       {% if project.is_project %}
         <div class="col-sm-6 mt-3">
           <div class="card shadow">

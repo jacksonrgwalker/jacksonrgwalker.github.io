@@ -2,6 +2,7 @@
 tags: ["monte carlo", "pure python", "simulation"]
 description: "Throwing darts to estimate the value of π"
 layout: project
+order_index: 6
 ---
 # Estimating Pi With Py
 

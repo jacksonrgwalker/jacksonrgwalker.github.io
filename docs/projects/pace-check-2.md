@@ -2,6 +2,7 @@
 tags: ["python", "running", "strava", "API", "analysis", "regression", "polylines"]
 description: "Further analysis of my longest run yet"
 layout: project
+order_index: 2
 ---
 # Pace Check II
 
