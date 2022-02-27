@@ -3,8 +3,8 @@ tags: ["pure python", "simulation", "blackjack"]
 description: "A simple, pure python simulator for the card game blackjack"
 layout: project
 order_index: 5
-
 ---
+
 # Blackjack Simulator
 
 [Github](https://github.com/jacksonrgwalker/blackjack-simulator)
