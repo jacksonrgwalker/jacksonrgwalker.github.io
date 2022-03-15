@@ -6,9 +6,8 @@ title: projects
 
 
   <div class="row justify-content-center fadein">
-    {% assign proj_pages = site.pages | sort: "order_index" | reverse %}
+    {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true %}
     {% for project in proj_pages %}
-      {% if project.is_project %}
         <div class="col-sm-6 mt-3">
           <div class="card shadow">
             <div class="card-body">
@@ -23,6 +22,5 @@ title: projects
             </div>
           </div>
         </div>
-      {% endif %}
     {% endfor %}
     </div>
