@@ -4,6 +4,7 @@ description: "A simple, deployed, AI model to predict a drawn number"
 title: "Neural Net Number Namer"
 layout: default
 order_index: 3
+pinned: true
 ---
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
@@ -15,10 +16,11 @@ order_index: 3
 
 
 <div style="text-align: center;">
-    <canvas class="border border-warning rounded fadein" id="canvas" name="draw" width="392" height="392" style="text-align: center; visibility: hidden;">
+    <canvas class="border border-warning rounded fadein" id="canvas" name="draw" width="392" height="392"
+        style="text-align: center; visibility: hidden;">
 
         <script type="text/javascript">
-                drawCanvas();
+            drawCanvas();
         </script>
 
     </canvas>
@@ -30,7 +32,8 @@ order_index: 3
         <button type="button" class="btn btn-outline-warning mt-2" onclick="clearCanvas()">clear</button>
     </div>
 
-    <h5 id="predictionText" class="display-5 text-center warning font-weight-bold text-warning mb-6" style="visibility: hidden;">you drew the number</h5> 
+    <h5 id="predictionText" class="display-5 text-center warning font-weight-bold text-warning mb-6"
+        style="visibility: hidden;">you drew the number</h5>
 
     <div id="predictionPlot"></div>
     <script src="/assets/js/NNNN/chart.js"></script>
@@ -39,13 +42,10 @@ order_index: 3
 </div>
 
 <script>
-tf.loadLayersModel("/assets/models/NNNN_model/model.json").then(function(model) {
- window.model = model;
- getPrediction(updateText=false);
- canvas.style.visibility = 'visible';
-});
+    tf.loadLayersModel("/assets/models/NNNN_model/model.json").then(function (model) {
+        window.model = model;
+        getPrediction(updateText = false);
+        canvas.style.visibility = 'visible';
+    });
 
 </script>
-
-
-

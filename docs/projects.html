@@ -2,25 +2,53 @@
 layout: default
 title: projects
 ---
+
+<div class="row justify-content-center fadein">
+  {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true | where: "pinned", true
+  %}
+  {% for project in proj_pages %}
+  <div class="col-sm-6 mt-3">
+    <div class="card shadow">
+      <div class="card-body">
+        <p class="text-warning font-weight-bold" style="font-size: 10px;">
+        <svg width="3%" height="3%" viewBox="0 0 18 18">
+          <path fill="#ffc107" d="M13 4V2H5v2h1v5l-1.5 1.5V12H8v4l1 1 1-1v-4h3.5v-1.5L12 9V4z" fill-rule="evenodd">
+          </path>
+        </svg>
+        PINNED</p>
+        <h5 class="card-title">{{ project.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ project.tags | join: ", "}}</h6>
+        <p class="card-text">{{ project.description }}</p>
+        {% if project.status %}
+        <a href="" class="btn btn-warning disabled">{{project.status}}</a>
+        {% else %}
+        <a href="{{project.url | replace: " .html", "" }}" class="btn btn-warning">Check it out</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+
+<hr>
 <h1>Latest Stuff</h1>
 
-
-  <div class="row justify-content-center fadein">
-    {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true %}
-    {% for project in proj_pages %}
-        <div class="col-sm-6 mt-3">
-          <div class="card shadow">
-            <div class="card-body">
-              <h5 class="card-title">{{ project.title }}</h5>
-              <h6 class="card-subtitle mb-2 text-muted">{{ project.tags | join: ", "}}</h6>
-              <p class="card-text">{{ project.description }}</p>
-              {% if project.status %}
-              <a href="" class="btn btn-warning disabled">{{project.status}}</a>
-              {% else %}
-              <a href="{{project.url | replace: ".html", ""}}" class="btn btn-warning">Check it out</a>
-              {% endif %}
-            </div>
-          </div>
-        </div>
-    {% endfor %}
+<div class="row justify-content-center fadein">
+  {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true %}
+  {% for project in proj_pages %}
+  <div class="col-sm-6 mt-3">
+    <div class="card shadow">
+      <div class="card-body">
+        <h5 class="card-title">{{ project.title }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ project.tags | join: ", "}}</h6>
+        <p class="card-text">{{ project.description }}</p>
+        {% if project.status %}
+        <a href="" class="btn btn-warning disabled">{{project.status}}</a>
+        {% else %}
+        <a href="{{project.url | replace: " .html", "" }}" class="btn btn-warning">Check it out</a>
+        {% endif %}
+      </div>
     </div>
+  </div>
+  {% endfor %}
+</div>
