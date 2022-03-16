@@ -82,3 +82,11 @@
     top: 0;
     border-width: 0 0 1px;
 }
+
+/* To center images */
+.centered-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border:1px solid #ffc107;
+}
