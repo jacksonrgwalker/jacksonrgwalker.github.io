@@ -188,4 +188,4 @@ That's it! Thanks for reading!
  - VS Code
    - [Get started with Visual Studio Code (video)](https://www.youtube.com/watch?v=S320N3sxinE&ab_channel=VisualStudioCode)
    - [Getting started with Visual Studio Code](https://code.visualstudio.com/docs/introvideos/basics)
-  - [Getting started with Github](https://docs.github.com/en/get-started)
+   - [Getting started with Github](https://docs.github.com/en/get-started)

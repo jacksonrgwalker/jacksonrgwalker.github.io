@@ -9,7 +9,8 @@ pinned: true
 
 <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@2.0.0/dist/tf.min.js"></script>
 <script src="https://d3js.org/d3.v4.js"></script>
-<script src="/assets/js/NNNN/canvas.js"></script>
+<script src="/assets/js/NNNN/funcs.js"></script>
+<script src="/assets/js/drawingCanvas/drawingCanvas.js"></script>
 
 
 <h2 class="display-4 text-center warning font-weight-bold text-warning mb-6">draw a single digit number</h2>
@@ -17,19 +18,17 @@ pinned: true
 
 <div style="text-align: center;">
     <canvas class="border border-warning rounded fadein" id="canvas" name="draw" width="392" height="392"
-        style="text-align: center; visibility: hidden;">
+        style="text-align: center; visibility: visible; cursor: wait;">
 
         <script type="text/javascript">
-            drawCanvas();
+            var drawing = new CanvasDrawing(canvasElemId='canvas', lineWidth=25, lineColor="#ffcc00");
         </script>
 
     </canvas>
 
-    <!-- <canvas class="border border-warning rounded fadein" id="convCanvas" name="draw" width="56" height="56" style="text-align: center; visibility: visible;">
-    </canvas> -->
 
     <div class="col text-center">
-        <button type="button" class="btn btn-outline-warning mt-2" onclick="clearCanvas()">clear</button>
+        <button type="button" class="btn btn-outline-warning mt-2" onclick="clearDrawingAndPrediction()">clear</button>
     </div>
 
     <h5 id="predictionText" class="display-5 text-center warning font-weight-bold text-warning mb-6"
@@ -45,7 +44,8 @@ pinned: true
     tf.loadLayersModel("/assets/models/NNNN_model/model.json").then(function (model) {
         window.model = model;
         getPrediction(updateText = false);
-        canvas.style.visibility = 'visible';
+        drawing.whileDrawingListeners.push(getPrediction, updatePlot)
+        canvas.style.cursor = 'crosshair'
     });
 
 </script>
