@@ -16,36 +16,74 @@ pinned: true
 <h2 class="display-4 text-center warning font-weight-bold text-warning mb-6">draw a single digit number</h2>
 
 
-<div style="text-align: center;">
-    <canvas class="border border-warning rounded fadein" id="canvas" name="draw" width="392" height="392"
-        style="text-align: center; visibility: visible; cursor: wait;">
+<div class="container" style="text-align: center;">
 
-        <script type="text/javascript">
-            var drawing = new CanvasDrawing(canvasElemId='canvas', lineWidth=25, lineColor="#ffcc00");
+    <div class="canvases col align-items-center">
+
+        <div class="text-center mb-1">
+            <button type="button" class="btn btn-outline-warning mt-2"
+                onclick="clearDrawingAndPrediction()">clear</button>
+        </div>
+
+        <div class="drawing row justify-content-center">
+
+            <canvas class="border border-warning rounded fadein" id="drawing-canvas" name="draw" width="392"
+                height="392" style="text-align: center; visibility: visible; cursor: wait;">
+
+                <script type="text/javascript">
+                    var drawing = new CanvasDrawing(canvasElemId = 'drawing-canvas', lineWidth = 25, lineColor = "#ffcc00");
+                </script>
+            </canvas>
+        </div>
+
+
+        <div class="layer-2 row justify-content-center mt-2">
+            {% for convolution_num in (0..7) %}
+            <canvas class="border border-warning rounded fadein m-1" id="layer-2-conv-{{convolution_num}}"
+                name="draw" width="28" height="28" style="text-align: center; visibility: visible;">
+            </canvas>
+            {% endfor %}
+        </div>
+
+        <div class="layer-8 row justify-content-center mt-2">
+            {% for convolution_num in (0..7) %}
+            <canvas class="border border-warning rounded fadein m-1" id="layer-8-conv-{{convolution_num}}"
+                name="draw" width="14" height="14" style="text-align: center; visibility: visible;">
+            </canvas>
+            {% endfor %}
+        </div>
+
+
+        <div class="layer-10 row justify-content-center mt-2">
+            {% for convolution_num in (0..7) %}
+            <canvas class="border border-warning rounded fadein m-1" id="layer-10-conv-{{convolution_num}}"
+                name="draw" width="14" height="14" style="text-align: center; visibility: visible;">
+            </canvas>
+            {% endfor %}
+        </div>
+
+        <div class="row justify-content-center">
+            <div id="predictionPlot"></div>
+            <script src="/assets/js/NNNN/chart.js"></script>
+        </div>
+
+        <div class="row justify-content-center">
+            <h5 id="predictionText" class="display-5 text-center warning font-weight-bold text-warning mb-6"
+                style="visibility: hidden;">you drew the number
+            </h5>
+        </div>
+
+        <script>
+            tf.loadLayersModel("/assets/models/NNNN_model/model.json").then(function (model) {
+                window.model = model
+                initializeConvolutionDrawings()
+                coldStart()
+                drawing.whileDrawingListeners.push(getPrediction, updatePlot)
+                drawing.canvas.style.cursor = 'crosshair'
+            });
+
         </script>
 
-    </canvas>
-
-
-    <div class="col text-center">
-        <button type="button" class="btn btn-outline-warning mt-2" onclick="clearDrawingAndPrediction()">clear</button>
     </div>
 
-    <h5 id="predictionText" class="display-5 text-center warning font-weight-bold text-warning mb-6"
-        style="visibility: hidden;">you drew the number</h5>
-
-    <div id="predictionPlot"></div>
-    <script src="/assets/js/NNNN/chart.js"></script>
-
-
 </div>
-
-<script>
-    tf.loadLayersModel("/assets/models/NNNN_model/model.json").then(function (model) {
-        window.model = model;
-        getPrediction(updateText = false);
-        drawing.whileDrawingListeners.push(getPrediction, updatePlot)
-        canvas.style.cursor = 'crosshair'
-    });
-
-</script>

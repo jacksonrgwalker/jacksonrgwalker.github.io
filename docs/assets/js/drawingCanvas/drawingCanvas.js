@@ -30,7 +30,7 @@ class CanvasDrawing {
     }
 
     get canvasOffset() {
-        return canvas.getBoundingClientRect()
+        return this.canvas.getBoundingClientRect()
     }
 
     
@@ -82,8 +82,8 @@ class CanvasDrawing {
         this.addNewPath()
         this.addPathNodeFromEvent(event)
 
-        this.whileDrawingListeners.forEach( listener => canvas.addEventListener('mousemove', listener))
-        this.whileDrawingListeners.forEach( listener => canvas.addEventListener('touchmove', listener))
+        this.whileDrawingListeners.forEach( listener => this.canvas.addEventListener('mousemove', listener))
+        this.whileDrawingListeners.forEach( listener => this.canvas.addEventListener('touchmove', listener))
 
     }
 
@@ -92,8 +92,8 @@ class CanvasDrawing {
 
     endPath = () => {
 
-        this.whileDrawingListeners.forEach( listener => canvas.removeEventListener('mousemove', listener))
-        this.whileDrawingListeners.forEach( listener => canvas.removeEventListener('touchmove', listener))
+        this.whileDrawingListeners.forEach( listener => this.canvas.removeEventListener('mousemove', listener))
+        this.whileDrawingListeners.forEach( listener => this.canvas.removeEventListener('touchmove', listener))
 
     }
 
@@ -104,7 +104,7 @@ class CanvasDrawing {
 
     }
 
-    getImageData = (width, height) => {
+    getDrawingData = (width, height) => {
         
         let resizedContext = document.createElement("canvas").getContext("2d")
         resizedContext.drawImage(this.canvas, 0, 0, width, height)
@@ -118,7 +118,7 @@ class CanvasDrawing {
 
         // array of pixels where 0 means nothing drawn there, 1 means something drawn there
 
-        let rgbaArray = this.getImageData(width, height).data
+        let rgbaArray = this.getDrawingData(width, height).data
 
         let drawingArray = []
         for (var i = 0; i < rgbaArray.length; i += 4) {
@@ -130,7 +130,7 @@ class CanvasDrawing {
 
     getLuminanceValues = (width=28, height=28) => {
 
-        let rgbaArray = this.getImageData(width, height).data
+        let rgbaArray = this.getDrawingData(width, height).data
         // ImageData.data
         // Is a Uint8ClampedArray representing a one-dimensional array containing 
         // the data in the RGBA order, with integer values between 0 and 255 (inclusive).

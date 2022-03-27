@@ -1,9 +1,9 @@
 
 
 // set the dimensions and margins of the graph
-var margin = { top: 30, right: 30, bottom: 70, left: 60 },
+var margin = { top: 16, right: 30, bottom: 30, left: 60 },
     width = 392 - margin.left - margin.right,
-    height = 200 - margin.top - margin.bottom;
+    height = 100 - margin.top - margin.bottom;
 
 // append the svg object to the body of the page
 var svg = d3.select("#predictionPlot")
@@ -27,7 +27,7 @@ svg
     .attr("transform", `translate(0,${height})`)      // This controls the rotate position of the Axis
     .call(d3.axisBottom(x))
         .selectAll("text")
-        .style("font-size", 25)
+        .style("font-size", 22)
         .style("fill", "#ffc107")
         .style('font-weight', '600')
 
@@ -56,6 +56,8 @@ svg.append("text")
 function updatePlot() {
 
     data = window.scores
+
+    if (!data) return
 
     var u = svg.selectAll("rect")
         .data(data)

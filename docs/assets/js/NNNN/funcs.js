@@ -1,3 +1,7 @@
+// TODO:
+// - only predict once per draw event, feed input through all layers and capture each layer's output so they can also be visualized
+// - more performance testing
+// - add func to clearn convolution canvases, add it too the clearDrawingAndPrediction func
 
 function clearDrawingAndPrediction() {
 
@@ -7,6 +11,9 @@ function clearDrawingAndPrediction() {
     // Clear the prediction
     window.scores = Array(10).fill(0)
     updatePlot();
+
+    clearConvDrawings()
+    updatePredictionText(null)
 }
 
 function getModelInput() {
@@ -18,23 +25,69 @@ function getModelInput() {
     return modelInput
 }
 
+function initializeConvolutionDrawings() {
 
-function getPrediction(updateText = true) {
+    let convDrawings = {}
 
-    modelInput = getModelInput()
+    for (layer of [2, 8, 10]) {
 
-    if (window.model) {
-        window.model.predict(modelInput).array().then(function (scores) {
+        convDrawings[layer] = []
 
-            scores = scores[0];
-            window.scores = scores
+        for (convolutionNum of [...Array(8).keys()]) {
 
-            prediction = scores.indexOf(Math.max(...scores));
-            if (updateText) updatePredictionText(prediction);
+            let convCanvasId = `layer-${layer}-conv-${convolutionNum}`
+            let thisDrawing = new CanvasDrawing(canvasElemId = convCanvasId)
 
-        });
+            convDrawings[layer].push(thisDrawing)
+        }
     }
-    else console.log("Model not ready to predict yet")
+
+    window.convDrawings = convDrawings
+}
+
+function clearConvDrawings() {
+
+    for (convDrawingArray of Object.values(convDrawings)) { 
+
+        convDrawingArray.forEach( convDrawing => convDrawing.clearDrawing() )
+    
+    }
+}
+
+
+function getPrediction() {
+
+    if (!window.model) {            
+        console.log("Model not ready to predict yet")
+        return
+    }
+
+    let layerOutputs = getAllLayerOutput()
+    let finalOutput = layerOutputs.slice(-1)[0]
+    
+    finalOutput.array().then(function (scores) {
+
+        scores = scores[0]
+        window.scores = scores
+        prediction = scores.indexOf(Math.max(...scores))
+
+        updatePredictionText(prediction)
+        showAllLayerConvolutions(layerOutputs)
+
+    })
+}
+
+async function showAllLayerConvolutions(layerOutputs){
+
+    await showLayerConvolutions(layerOutputs[2], layerNum=2)
+    await showLayerConvolutions(layerOutputs[8], layerNum=8)
+    await showLayerConvolutions(layerOutputs[10], layerNum=10)
+
+}
+
+function coldStart(){
+    let layerOutputs = getAllLayerOutput()
+    showAllLayerConvolutions(layerOutputs).then(clearConvDrawings)
 }
 
 function updatePredictionText(prediction) {
@@ -48,53 +101,70 @@ function updatePredictionText(prediction) {
     }
 }
 
-
-
 function getAllLayerOutput() {
-
-    modelInput = getModelInput()
 
     if (!window.model) return
 
     model_input = getModelInput()
 
-    let layer_outputs = [model_input]
-
-    let layer_outputs_awaited = [] 
+    let layerOutputs = [model_input]
 
     // skip 0th layer, it is a tfjs input layer, I think
-    for (let layer_num = 1; layer_num < window.model.layers.length; layer_num++) {
+    for (let i = 0; i < window.model.layers.length-1; i++) {
 
-        let layer = window.model.layers[layer_num]
-        let layer_output = layer.apply(layer_outputs[layer_num - 1])
-        layer_outputs.push(layer_output);
-
-        layer_output.array().then(function (layer_output_array) {
-            layer_outputs_awaited.push({
-                name: layer.name,
-                data: layer_output_array[0],
-                shape: layer_output.shape.slice(1)
-            })
-        })
+        let layer = window.model.layers[i+1]
+        let layer_output = layer.apply(layerOutputs[i])
+        layerOutputs.push(layer_output);
 
     }
 
-    window.layer_outputs = layer_outputs_awaited
+    return layerOutputs
 
-    return layer_outputs_awaited
+
+}
+ 
+
+function normalizeTensor(tensor) {
+
+    min = tensor.min()
+    return  tensor.sub(min).div(tensor.max().sub(min))
+
+}
+
+
+async function showLayerConvolutions(layerOutput, layerNum){
+
+    let yellowRgbTensor = tf.tensor([1, 0.8, 0]).tile([layerOutput.shape[1]**2]).reshape([...layerOutput.shape.slice(1,3), 3])
+
+    for (let convolutionNum of [...Array(8).keys()]) {
+        
+        let convCanvas = convDrawings[layerNum][convolutionNum].canvas
+
+        let convolution = layerOutput.slice([0, 0, 0, convolutionNum*4], [...layerOutput.shape.slice(0,3), 1])
+        convolution = convolution.reshape([...layerOutput.shape.slice(1,3), 1])
+        convolution = normalizeTensor(convolution)
+
+        let convolutionYellow = tf.concat([yellowRgbTensor, convolution], axis=2)
+
+        await tf.browser.toPixels(convolutionYellow, convCanvas)
+
+
+    }
 
 
 }
 
 
-async function getConvVisuals(layerIndex, canvasElem){
+function throttle(callback, interval) {
+    let enableCall = true;
+  
+    return function(...args) {
+      if (!enableCall) return;
+  
+      enableCall = false;
+      callback.apply(this, args);
+      setTimeout(() => enableCall = true, interval);
+    }
+  }
 
-    if (!window.layer_outputs) getAllLayerOutput()
-
-    const single_conv = tf.slice(window.layer_outputs[layerIndex].data, [0, 0, 0], [28, 28, 1])
-
-    const resized = tf.tidy(() => tf.image.resizeNearestNeighbor(single_conv, [28,28]).clipByValue(0.0, 1.0));
-
-    await tf.browser.toPixels(resized, canvasElem); 
-
-} 
+getPrediction = throttle(getPrediction, 50)
