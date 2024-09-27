@@ -3,6 +3,7 @@ tags: ["vectorizing", "pen plotting", "art"]
 description: "Turning images into sine waves"
 layout: project
 order_index: 8
+pinned: true
 ---
 # SquiggleDraw
 
