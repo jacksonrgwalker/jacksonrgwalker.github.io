@@ -46,6 +46,7 @@ pinned: false
     cursor: not-allowed;
   }
 </style>
+
 <div class="container">
   <h1>Video Date Overlay and Stitcher</h1>
   <input type="file" id="fileInput" multiple accept="video/*" />
@@ -89,8 +90,11 @@ pinned: false
     recordedChunks = [];
     recorder = null;
 
-    const stream = canvas.captureStream();
-    recorder = new MediaRecorder(stream);
+    const stream = canvas.captureStream(30); // Set frame rate
+    recorder = new MediaRecorder(stream, {
+      mimeType: "video/webm; codecs=vp9", // Use high-quality codec
+      videoBitsPerSecond: 5000000, // Increase bitrate
+    });
 
     recorder.ondataavailable = (e) => recordedChunks.push(e.data);
     recorder.onstop = () => {
