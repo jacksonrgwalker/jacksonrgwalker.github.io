@@ -4,7 +4,7 @@ layout: default
 description: "A generative AI service that helps people write wedding vows"
 title: "LovelyWords📝💛"
 order_index: 13
-pinned: true
+pinned: false
 ---
 
 # LovelyWords📝💛
