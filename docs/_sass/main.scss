@@ -1,46 +1,9 @@
 #logo{
-    content:url("/assets/img/logo/jwalk_logo_animation_f1.svg");
     width: 40px;
     height: 40px;
     position: relative;
-    animation-play-state: paused;
-    animation-name: logo_dance;
-    animation-duration: 1s;
-    animation-iteration-count: infinite;
-    // animation-direction: alternate-reverse;
-    // -webkit-animation-direction: alternate-reverse;
-      }
-#logo:hover{
-  animation-play-state: running;              /* trigger on hover */
-  }
-
-.animateOnce {
-    animation: logo_dance 1s normal forwards ease-in-out;
-    width: 40px;
-    height: 40px;
-    animation-duration: 1s;
-    animation-delay: 1000ms;
-
-}
-
-// @keyframes logo_dance {
-//   25%  {content:url("/assets/img/logo/logo B.png");}
-//   50%  {content:url("/assets/img/logo/logo C.png");}
-//   75%  {content:url("/assets/img/logo/logo B.png");}
-
-// }
-@keyframes logo_dance {
-  5%  {content:url("/assets/img/logo/jwalk_logo_animation_f1.svg");}
-  22%  {content:url("/assets/img/logo/jwalk_logo_animation_f2.svg");}
-  33%  {content:url("/assets/img/logo/jwalk_logo_animation_f3.svg");}
-  44%  {content:url("/assets/img/logo/jwalk_logo_animation_f4.svg");}
-  55%  {content:url("/assets/img/logo/jwalk_logo_animation_f5.svg");}
-  67%  {content:url("/assets/img/logo/jwalk_logo_animation_f4.svg");}
-  79%  {content:url("/assets/img/logo/jwalk_logo_animation_f3.svg");}
-  92%  {content:url("/assets/img/logo/jwalk_logo_animation_f2.svg");}
-
-
-
+    display: inline-block;
+    object-fit: contain;
 }
   .fadein {
       -webkit-animation: fadein .4s; /* Safari, Chrome and Opera > 12.1 */

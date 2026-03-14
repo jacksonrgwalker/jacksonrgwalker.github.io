@@ -4,12 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1">
     <title>{{ page.title }}</title>
-<!-- 
     <link rel="preload" href="/assets/img/logo/jwalk_logo_animation_f1.svg" as="image">
     <link rel="preload" href="/assets/img/logo/jwalk_logo_animation_f2.svg" as="image">
     <link rel="preload" href="/assets/img/logo/jwalk_logo_animation_f3.svg" as="image">
     <link rel="preload" href="/assets/img/logo/jwalk_logo_animation_f4.svg" as="image">
-    <link rel="preload" href="/assets/img/logo/jwalk_logo_animation_f5.svg" as="image"> -->
+    <link rel="preload" href="/assets/img/logo/jwalk_logo_animation_f5.svg" as="image">
 
 
     <link rel="stylesheet" href="/assets/css/{{layout.style_sheet}}.css">
@@ -48,6 +47,86 @@
 <div class="container">
     {{ content }}
 </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const logo = document.getElementById("logo");
+      if (!logo) return;
+
+      const frames = [
+        "/assets/img/logo/jwalk_logo_animation_f1.svg",
+        "/assets/img/logo/jwalk_logo_animation_f2.svg",
+        "/assets/img/logo/jwalk_logo_animation_f3.svg",
+        "/assets/img/logo/jwalk_logo_animation_f4.svg",
+        "/assets/img/logo/jwalk_logo_animation_f5.svg"
+      ];
+      const sequence = [0, 1, 2, 3, 4, 3, 2, 1];
+      const frameDurationMs = 125;
+      const autoplayDurationMs = 1000;
+
+      let framePointer = 0;
+      let intervalId = null;
+      let hoverActive = false;
+      let autoplayActive = false;
+
+      const renderFrame = function () {
+        logo.src = frames[sequence[framePointer]];
+        framePointer = (framePointer + 1) % sequence.length;
+      };
+
+      const stopAnimation = function () {
+        if (intervalId !== null) {
+          clearInterval(intervalId);
+          intervalId = null;
+        }
+        framePointer = 0;
+        logo.src = frames[0];
+      };
+
+      const startAnimation = function () {
+        if (intervalId !== null) return;
+        renderFrame();
+        intervalId = window.setInterval(renderFrame, frameDurationMs);
+      };
+
+      const syncAnimationState = function () {
+        if (hoverActive || autoplayActive) {
+          startAnimation();
+        } else {
+          stopAnimation();
+        }
+      };
+
+      const preloadFrames = frames.map(function (frameSrc) {
+        return new Promise(function (resolve) {
+          const img = new Image();
+          img.onload = resolve;
+          img.onerror = resolve;
+          img.src = frameSrc;
+        });
+      });
+
+      Promise.all(preloadFrames).then(function () {
+        autoplayActive = true;
+        syncAnimationState();
+
+        window.setTimeout(function () {
+          autoplayActive = false;
+          syncAnimationState();
+        }, autoplayDurationMs);
+      });
+
+      logo.addEventListener("mouseenter", function () {
+        hoverActive = true;
+        syncAnimationState();
+      });
+
+      logo.addEventListener("mouseleave", function () {
+        hoverActive = false;
+        syncAnimationState();
+      });
+    });
+  </script>
 
   </body>
 
