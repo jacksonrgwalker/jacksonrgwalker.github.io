@@ -3,6 +3,14 @@ layout: default
 title: projects
 ---
 
+<div class="mt-4 mb-2 fadein">
+  <p class="text-muted">
+    A mix of production-adjacent tools, research demos, and older experiments
+    that were still worth keeping around.
+  </p>
+</div>
+
+<h1>Selected Work</h1>
 <div class="row justify-content-center fadein">
   {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true | where: "pinned", true
   %}
@@ -22,7 +30,7 @@ title: projects
         {% if project.status %}
         <a href="" class="btn btn-warning disabled">{{project.status}}</a>
         {% else %}
-        <a href="{{project.url | replace: " .html", "" }}" class="btn btn-warning">Check it out</a>
+        <a href="{{project.url | replace: " .html", "" }}" class="btn btn-warning">Open project</a>
         {% endif %}
       </div>
     </div>
@@ -31,10 +39,10 @@ title: projects
 </div>
 
 <hr>
-<h1>Everything Else</h1>
+<h1>Other Projects</h1>
 
 <div class="row justify-content-center fadein">
-  {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true %}
+  {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true | where_exp: "project", "project.pinned != true" %}
   {% for project in proj_pages %}
   <div class="col-sm-6 mt-3">
     <div class="card shadow">
@@ -45,7 +53,7 @@ title: projects
         {% if project.status %}
         <a href="" class="btn btn-warning disabled">{{project.status}}</a>
         {% else %}
-        <a href="{{project.url | replace: " .html", "" }}" class="btn btn-warning">Check it out</a>
+        <a href="{{project.url | replace: " .html", "" }}" class="btn btn-warning">Open project</a>
         {% endif %}
       </div>
     </div>

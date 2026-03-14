@@ -1,6 +1,6 @@
 ---
 tags: ["python", "running", "strava", "API", "analysis", "regression", "polylines"]
-description: "Further analysis of my longest run yet"
+description: "A second pass at analyzing a long run with the Strava API."
 layout: project
 order_index: 2
 ---

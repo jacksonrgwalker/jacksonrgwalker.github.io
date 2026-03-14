@@ -1,7 +1,7 @@
 ---
-tags: ["Gen AI", "Trivia", "IndieHacking"]
+tags: ["Gen AI", "Trivia", "History"]
 layout: default
-description: "A daily trivia game generated from historical events."
+description: "A daily history trivia game generated from archival events."
 title: "knewit"
 order_index: 14
 pinned: true

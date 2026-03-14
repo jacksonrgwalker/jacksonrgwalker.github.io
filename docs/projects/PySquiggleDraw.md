@@ -1,6 +1,6 @@
 ---
 tags: ["vectorizing", "pen plotting", "art"]
-description: "Turning images into sine waves"
+description: "Turns bitmap images into sine-wave drawings for pen plotting."
 layout: project
 order_index: 8
 pinned: true
@@ -141,5 +141,4 @@ I recomend you use an SVG optimizer like [scour](https://github.com/scour-projec
 Heres that image after drawn with the pen plotter
 
 <img src="https://github.com/jacksonrgwalker/PySquiggleDraw/blob/main/PySquiggleDraw/fourier_drawn.jpg?raw=true" alt="fourier_drawn" style="width: 600px;"/>
-
 

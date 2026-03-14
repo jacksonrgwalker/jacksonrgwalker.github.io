@@ -1,6 +1,6 @@
 ---
 tags: ["how-to", "package-management", "python"]
-description: "How to run code from my python projects"
+description: "Notes on running code from my Python projects."
 layout: project
 order_index: 9
 # status: under construction

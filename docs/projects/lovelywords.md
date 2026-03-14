@@ -1,7 +1,7 @@
 ---
-tags: ["Gen AI", "Wedding Vows", "IndieHacking"]
+tags: ["Gen AI", "Writing", "Archive"]
 layout: default
-description: "A writing tool for drafting wedding vows."
+description: "An older writing tool for drafting wedding vows."
 title: "LovelyWords"
 order_index: 13
 pinned: false

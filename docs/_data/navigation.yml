@@ -1,6 +1,6 @@
 - name: projects
   link: /projects
-- name: about_me
+- name: about
   link: /about_me
 - name: contact
   link: /contact

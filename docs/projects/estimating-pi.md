@@ -1,6 +1,6 @@
 ---
 tags: ["monte carlo", "pure python", "simulation"]
-description: "Throwing darts to compute the value of π"
+description: "Estimating pi with a dart-throwing Monte Carlo simulation."
 layout: project
 order_index: 6
 ---

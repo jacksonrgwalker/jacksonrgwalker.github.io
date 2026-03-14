@@ -1,6 +1,6 @@
 ---
 tags: ["monte carlo", "statistics", "simulation"]
-description: "Creating a custom random variable to approximate Euler's number"
+description: "A Monte Carlo estimate of e via a stopping-time construction."
 layout: project
 order_index: 7
 ---
