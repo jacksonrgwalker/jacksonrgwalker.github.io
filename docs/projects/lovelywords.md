@@ -1,14 +1,16 @@
 ---
 tags: ["Gen AI", "Wedding Vows", "IndieHacking"]
 layout: default
-description: "A generative AI service that helps people write wedding vows"
-title: "LovelyWords📝💛"
+description: "A writing tool for drafting wedding vows."
+title: "LovelyWords"
 order_index: 13
 pinned: false
 ---
 
-# LovelyWords📝💛
+# LovelyWords
 
 [➡︎ Try out LovelyWords! ⬅︎](https://www.lovelywords.co/)
 
-LovelyWords is a generative AI service that helps people write wedding vows. It's a fun and easy way to get started on your vows, whether you're looking for inspiration or just need a little help getting started. LovelyWords uses a powerful AI model to generate unique and heartfelt vows that are sure to make your special day even more memorable.
+LovelyWords is a writing tool for people who want help getting unstuck on wedding vows.
+
+The idea is simple: most people do not need a machine to write the whole thing for them. They need a clean first draft, a few useful prompts, and a way to iterate without staring at a blank page. This project was built around that narrower problem.
