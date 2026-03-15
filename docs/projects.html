@@ -5,8 +5,7 @@ title: projects
 
 <div class="mt-4 mb-2 fadein">
   <p class="text-muted">
-    A mix of production-adjacent tools, research demos, and older experiments
-    that were still worth keeping around.
+    A smaller set of projects that still feels representative.
   </p>
 </div>
 
@@ -39,7 +38,10 @@ title: projects
 </div>
 
 <hr>
-<h1>Other Projects</h1>
+<h1>Archive</h1>
+<p class="text-muted">
+  Older experiments, rougher builds, and projects I left up mostly as a record.
+</p>
 
 <div class="row justify-content-center fadein">
   {% assign proj_pages = site.pages | sort: "order_index" | reverse | where: "is_project", true | where_exp: "project", "project.pinned != true" %}

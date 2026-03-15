@@ -4,7 +4,7 @@ layout: default
 description: "A daily history trivia game generated from archival events."
 title: "knewit"
 order_index: 14
-pinned: true
+pinned: false
 ---
 
 # knewit
